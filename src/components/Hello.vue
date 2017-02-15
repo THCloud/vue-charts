@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex';
 
 export default {
     name: 'hello',
@@ -16,7 +16,7 @@ export default {
     data () {
         return {
             msg: 'hello echarts'
-        }
+        };
     },
 
     computed: {
@@ -31,10 +31,10 @@ export default {
 
     methods: {
         update (e) {
-            this.$store.commit('updateTitle', e.target.value)
+            this.$store.commit('updateTitle', e.target.value);
         }
     }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

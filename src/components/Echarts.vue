@@ -10,9 +10,9 @@
 </style>
 
 <script>
-import echarts from 'echarts'
-import 'echarts/theme/macarons'
-import debounce from 'lodash.debounce'
+import echarts from 'echarts';
+import 'echarts/theme/macarons';
+import debounce from 'lodash.debounce';
 
 // enumerating ECharts events for now
 const ACTION_EVENTS = [
@@ -38,7 +38,7 @@ const ACTION_EVENTS = [
     'axisareaselected',
     'brush',
     'brushselected'
-]
+];
 const MOUSE_EVENTS = [
     'click',
     'dblclick',
@@ -47,7 +47,7 @@ const MOUSE_EVENTS = [
     'mousedown',
     'mouseup',
     'globalout'
-]
+];
 export default {
     props: {
         options: Object,
@@ -59,7 +59,7 @@ export default {
     data () {
         return {
             chart: null
-        }
+        };
     },
     computed: {
         // Only recalculated when accessed from JavaScript.
@@ -68,19 +68,19 @@ export default {
         width: {
             cache: false,
             get () {
-                return this.chart.getWidth()
+                return this.chart.getWidth();
             }
         },
         height: {
             cache: false,
             get () {
-                return this.chart.getHeight()
+                return this.chart.getHeight();
             }
         },
         isDisposed: {
             cache: false,
             get () {
-                return this.chart.isDisposed()
+                return this.chart.isDisposed();
             }
         }
     },
@@ -89,114 +89,114 @@ export default {
         options: {
             handler (options) {
                 if (!this.chart && options) {
-                    this._init()
+                    this._init();
                 } else {
-                    this.chart.setOption(this.options, true)
+                    this.chart.setOption(this.options, true);
                 }
             },
             deep: true
         },
         group: {
             handler (group) {
-                this.chart.group = group
+                this.chart.group = group;
             }
         }
     },
     methods: {
         // provide a explicit merge option method
         mergeOptions (options) {
-            this._delegateMethod('setOption', options)
+            this._delegateMethod('setOption', options);
         },
         // just delegates ECharts methods to Vue component
         // use explicit params to reduce transpiled size for now
         resize (options) {
-            this._delegateMethod('resize', options)
+            this._delegateMethod('resize', options);
         },
         dispatchAction (payload) {
-            this._delegateMethod('dispatchAction', payload)
+            this._delegateMethod('dispatchAction', payload);
         },
         convertToPixel (finder, value) {
-            return this._delegateMethod('convertToPixel', finder, value)
+            return this._delegateMethod('convertToPixel', finder, value);
         },
         convertFromPixel (finder, value) {
-            return this._delegateMethod('convertFromPixel', finder, value)
+            return this._delegateMethod('convertFromPixel', finder, value);
         },
         containPixel (finder, value) {
-            return this._delegateMethod('containPixel', finder, value)
+            return this._delegateMethod('containPixel', finder, value);
         },
         showLoading (type, options) {
-            this._delegateMethod('showLoading', type, options)
+            this._delegateMethod('showLoading', type, options);
         },
         hideLoading () {
-            this._delegateMethod('hideLoading')
+            this._delegateMethod('hideLoading');
         },
         getDataURL (options) {
-            return this._delegateMethod('getDataURL', options)
+            return this._delegateMethod('getDataURL', options);
         },
         getConnectedDataURL (options) {
-            return this._delegateMethod('getConnectedDataURL', options)
+            return this._delegateMethod('getConnectedDataURL', options);
         },
         clear () {
-            this._delegateMethod('clear')
+            this._delegateMethod('clear');
         },
         dispose () {
-            this._delegateMethod('dispose')
+            this._delegateMethod('dispose');
         },
         _delegateMethod (name, ...args) {
             if (!this.chart) {
-                console.log(`Cannot call [${name}] before the chart is initialized. Set prop [options] first.`, this)
-                return
+                console.log(`Cannot call [${name}] before the chart is initialized. Set prop [options] first.`, this);
+                return;
             }
-            return this.chart[name](...args)
+            return this.chart[name](...args);
         },
         _init () {
             if (this.chart) {
-                return
+                return;
             }
-            let chart = echarts.init(this.$el, 'macarons', this.initOptions)
-            chart.setOption(this.options, true)
+            let chart = echarts.init(this.$el, 'macarons', this.initOptions);
+            chart.setOption(this.options, true);
             // expose ECharts events as custom events
             ACTION_EVENTS.forEach(event => {
                 chart.on(event, params => {
-                    this.$emit(event, params)
-                })
-            })
+                    this.$emit(event, params);
+                });
+            });
             MOUSE_EVENTS.forEach(event => {
                 chart.on(event, params => {
-                    this.$emit(event, params)
+                    this.$emit(event, params);
                     // for backward compatibility, may remove in the future
-                    this.$emit('chart' + event, params)
-                })
-            })
+                    this.$emit('chart' + event, params);
+                });
+            });
             if (this.autoResize) {
                 this.__resizeHanlder = debounce(() => {
-                    chart.resize()
-                }, 100, { leading: true })
-                window.addEventListener('resize', this.__resizeHanlder)
+                    chart.resize();
+                }, 100, { leading: true });
+                window.addEventListener('resize', this.__resizeHanlder);
             }
-            this.chart = chart
+            this.chart = chart;
         }
     },
     mounted () {
     // auto init if `options` is already provided
         if (this.options) {
-            this._init()
+            this._init();
         }
     },
     connect (group) {
         if (typeof group !== 'string') {
-            group = group.map(chart => chart.chart)
+            group = group.map(chart => chart.chart);
         }
-        echarts.connect(group)
+        echarts.connect(group);
     },
     disconnect (group) {
-        echarts.disconnect(group)
+        echarts.disconnect(group);
     },
     registerMap (...args) {
-        echarts.registerMap(...args)
+        echarts.registerMap(...args);
     },
     registerTheme (...args) {
-        echarts.registerTheme(...args)
+        echarts.registerTheme(...args);
     }
-}
+};
 </script>

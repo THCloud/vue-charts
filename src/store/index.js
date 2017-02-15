@@ -1,11 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import * as getters from './getters'
-import chart from './modules/chart'
+import Vue from 'vue';
+import Vuex from 'vuex';
+import * as getters from './getters';
+import chart from './modules/chart';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-const debug = process.env.NODE_ENV !== 'production'
+const debug = process.env.NODE_ENV !== 'production';
 
 export default new Vuex.Store({
     getters,
@@ -13,4 +13,4 @@ export default new Vuex.Store({
         chart
     },
     strict: debug
-})
+});

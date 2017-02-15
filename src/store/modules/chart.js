@@ -1,13 +1,13 @@
 const mergeOption = (option, defaultOption) => {
-    let keys = [...new Set([...Object.keys(option), ...Object.keys(defaultOption)])]
+    let keys = [...new Set([...Object.keys(option), ...Object.keys(defaultOption)])];
     return keys.reduce((output, key) =>
         Object.assign(output, {
             [key]: Array.isArray(option[key])
                 ? option[key].map(i =>
                     Object.assign(JSON.parse(JSON.stringify(i)), defaultOption[key]))
                 : Object.assign({}, option[key], defaultOption[key])
-        }), {})
-}
+        }), {});
+};
 
 const defaultOptions = {
     largeScalaPoint: {
@@ -77,7 +77,7 @@ const defaultOptions = {
             type: 'line'
         }
     }
-}
+};
 
 const state = {
     option: {
@@ -106,52 +106,52 @@ const state = {
             }
         ]
     }
-}
+};
 
 const getters = {
     getLargeScalaPointsOptions: (state) =>
         mergeOption(state.option, defaultOptions.largeScalaPoint),
     getLineOptions: (state) =>
         mergeOption(state.option, defaultOptions.line)
-}
+};
 
-const actions = {}
+const actions = {};
 
 // there is something wrong here.
 // if legend.length != series.length, it will cause error
 // may do exception latter.
 const mutations = {
     updateTitle: (state, newTitle) => {
-        state.option.title.text = newTitle
+        state.option.title.text = newTitle;
     },
     updateLegend: (state, newLegend) => {
-        state.option.legend.data = newLegend
+        state.option.legend.data = newLegend;
     },
     updateXName: (state, newName) => {
-        state.option.xAxis.name = newName
+        state.option.xAxis.name = newName;
     },
     updateXFormatter: (state, newFormatter) => {
-        state.option.xAxis.axisLabel.formatter = '{value}' + newFormatter
+        state.option.xAxis.axisLabel.formatter = '{value}' + newFormatter;
     },
     updateYName: (state, newName) => {
-        state.option.yAxis.name = newName
+        state.option.yAxis.name = newName;
     },
     updateYFormatter: (state, newFormatter) => {
-        state.option.yAxis.axisLabel.formatter = '{value}' + newFormatter
+        state.option.yAxis.axisLabel.formatter = '{value}' + newFormatter;
     },
     updateSeriesData: (state, newData) => {
-        let series = []
+        let series = [];
         Object.keys(state.option.legend.data)
                 .forEach(idx => {
-                    series.push(Object.assign({}, state.option.series[idx], {'data': newData[idx]}))
-                })
-        state.option.series = series
+                    series.push(Object.assign({}, state.option.series[idx], {'data': newData[idx]}));
+                });
+        state.option.series = series;
     }
-}
+};
 
 export default {
     state,
     getters,
     actions,
     mutations
-}
+};
