@@ -1,13 +1,14 @@
 <template>
     <div class="hello">
         <h1>{{ msg }}</h1>
-        <chart :options="polar" auto-resize></chart>
+        <input type='text' :value="title" @input="update">
+        <chart :options="point" auto-resize></chart>
+        <chart :options="line" auto-resize></chart>
     </div>
 </template>
 
 <script>
-// import { mapGetters } from 'vuex'
-// import { mergeObject } from '../util/utils'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
     name: 'hello',
@@ -19,38 +20,19 @@ export default {
     },
 
     computed: {
-        polar () {
-            let option = {
-                title: {
-                    text: 'large scala test'
-                },
-                legend: {
-                    data: ['test']
-                },
-                xAxis: [
-                    {
-                        scale: true
-                    }
-                ],
-                yAxis: [
-                    {
-                        scale: true
-                    }
-                ],
-                series: [
-                    {
-                        type: 'scatter',
-                        data: [[0, 1], [1, 2], [2, 3]]
-                    }
-                ]
-            }
-            // let src = Object.assign({}, this.$store.getters.getLargeScalaPointsOptions)
-            return option
-            // return mergeObject(src, option)
+        ...mapGetters({
+            point: 'getLargeScalaPointsOptions',
+            line: 'getLineOptions'
+        }),
+        ...mapState({
+            title: state => state.chart.option.title.text
+        })
+    },
+
+    methods: {
+        update (e) {
+            this.$store.commit('updateTitle', e.target.value)
         }
-        // ...mapGetters({
-        //     polar: 'getChartOptions'
-        // })
     }
 }
 </script>
