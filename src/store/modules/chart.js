@@ -128,10 +128,10 @@ const mutations = {
         state.option.legend.data = newLegend;
         let series = [];
         Object.keys(state.option.legend.data)
-                .forEach(idx => {
-                    series.push(Object.assign({},
-                        state.option.series[idx], {'name': newLegend[idx]}));
-                });
+            .forEach(idx => {
+                series.push(Object.assign({},
+                    state.option.series[idx], {'name': newLegend[idx]}));
+            });
         state.option.series = series;
     },
     updateXName: (state, newName) => {
