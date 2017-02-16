@@ -82,26 +82,26 @@ const defaultOptions = {
 const state = {
     option: {
         title: {
-            text: 'large scala test'
+            text: 'title name'
         },
         legend: {
-            data: ['test']
+            data: ['legend']
         },
         xAxis: {
-            name: '',
+            name: 'xName',
             axisLabel: {
-                formatter: null
+                formatter: '{value}'
             }
         },
         yAxis: {
-            name: '',
+            name: 'yName',
             axisLabel: {
-                formatter: null
+                formatter: '{value}'
             }
         },
         series: [
             {
-                name: 'test',
+                name: 'legend',
                 data: [[0, 1], [1, 1], [1, 2], [2, 3]]
             }
         ]
@@ -126,6 +126,13 @@ const mutations = {
     },
     updateLegend: (state, newLegend) => {
         state.option.legend.data = newLegend;
+        let series = [];
+        Object.keys(state.option.legend.data)
+                .forEach(idx => {
+                    series.push(Object.assign({},
+                        state.option.series[idx], {'name': newLegend[idx]}));
+                });
+        state.option.series = series;
     },
     updateXName: (state, newName) => {
         state.option.xAxis.name = newName;
@@ -143,7 +150,8 @@ const mutations = {
         let series = [];
         Object.keys(state.option.legend.data)
                 .forEach(idx => {
-                    series.push(Object.assign({}, state.option.series[idx], {'data': newData[idx]}));
+                    series.push(Object.assign({},
+                        state.option.series[idx], {'data': newData[idx]}));
                 });
         state.option.series = series;
     }

@@ -1,14 +1,16 @@
 <template>
-    <div class="hello">
-        <h1>{{ msg }}</h1>
-        <input type='text' :value="title" @input="update">
-        <chart :options="point" auto-resize></chart>
-        <chart :options="line" auto-resize></chart>
-    </div>
+<div>
+    <h1>{{ msg }}</h1>
+    <input-group></input-group>
+    <chart :options="point" auto-resize></chart>
+    <!-- <chart :options="line" auto-resize></chart> -->
+</div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex';
+import Chart from './Echarts';
+import InputGroup from './InputGroup';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'hello',
@@ -19,20 +21,16 @@ export default {
         };
     },
 
+    components: {
+        Chart,
+        InputGroup
+    },
+
     computed: {
         ...mapGetters({
             point: 'getLargeScalaPointsOptions',
             line: 'getLineOptions'
-        }),
-        ...mapState({
-            title: state => state.chart.option.title.text
         })
-    },
-
-    methods: {
-        update (e) {
-            this.$store.commit('updateTitle', e.target.value);
-        }
     }
 };
 </script>

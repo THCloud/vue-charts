@@ -5,6 +5,7 @@
 <style>
 .echarts {
     height: 400px;
+    /*width: 800px;*/
     margin: 10px 0;
 }
 </style>

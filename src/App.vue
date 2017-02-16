@@ -1,18 +1,25 @@
 <template>
     <div id="app">
         <navbar></navbar>
+        <jumbo></jumbo>
         <!-- <img src="./assets/logo.png"> -->
         <router-view></router-view>
+        <hr>
+        <page-footer></page-footer>
     </div>
 </template>
 
 <script>
 import Navbar from './components/Navbar';
+import PageFooter from './components/Footer';
+import Jumbo from './components/Jumbo';
 
 export default {
     name: 'app',
     components: {
-        Navbar
+        Jumbo,
+        Navbar,
+        PageFooter
     }
 };
 </script>
@@ -22,8 +29,7 @@ export default {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    margin-top: 50px;
 }
 </style>
