@@ -24,6 +24,5 @@ export default {
 	color: #FFF;
 	border-bottom: 1px solid #ddd;
 	margin-top: 40px;
-	padding: 40px 0px !important;
 }
 </style>

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Hello from 'components/Hello';
-import Help from 'components/Help';
+import ChartMake from 'views/ChartMake';
+import Help from 'views/Help';
 
 Vue.use(Router);
 
@@ -9,11 +9,11 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'Hello',
-            component: Hello
+            name: 'ChartMake',
+            component: ChartMake
         },
         {
-            path: '/home',
+            path: '/help',
             name: 'Help',
             component: Help
         }

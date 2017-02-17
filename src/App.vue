@@ -2,7 +2,6 @@
     <div id="app">
         <navbar></navbar>
         <jumbo></jumbo>
-        <!-- <img src="./assets/logo.png"> -->
         <router-view></router-view>
         <hr>
         <page-footer></page-footer>
@@ -10,9 +9,9 @@
 </template>
 
 <script>
-import Navbar from './components/Navbar';
-import PageFooter from './components/Footer';
-import Jumbo from './components/Jumbo';
+import Navbar from './views/Navbar';
+import PageFooter from './views/Footer';
+import Jumbo from './views/Jumbo';
 
 export default {
     name: 'app',

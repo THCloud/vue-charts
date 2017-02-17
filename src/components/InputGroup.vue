@@ -60,8 +60,6 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex';
-
 export default {
     name: 'input-group',
 
@@ -85,23 +83,10 @@ export default {
         this.yFormatter = this.$store.state.chart.option.yAxis.axisLabel.formatter.replace('{value}', '');
     },
 
-    // computed: {
-    //     ...mapState({
-    //         title: state => state.chart.option.title.text,
-    //         legend: state => state.chart.option.legend.data[0],
-    //         xName: state => state.chart.option.xAxis.name,
-    //         xFormatter: state => state.chart.option.xAxis.axisLabel.formatter.replace('{value}', ''),
-    //         yName: state => state.chart.option.yAxis.name,
-    //         yFormatter: state => state.chart.option.yAxis.axisLabel.formatter.replace('{value}', '')
-    //     })
-    // },
-
     methods: {
         update (e) {
             this.$store.commit('updateTitle', this.title);
-            let l = [];
-            l.push(this.legend);
-            this.$store.commit('updateLegend', l);
+            this.$store.commit('updateLegend', Array.of(this.legend));
             this.$store.commit('updateXName', this.xName);
             this.$store.commit('updateXFormatter', this.xFormatter);
             this.$store.commit('updateYName', this.yName);
@@ -112,61 +97,16 @@ export default {
             reader.readAsText(file);
             reader.onload = (e) => {
                 let data = e.target.result.toString().split('\n');
-                let series = [];
-                for (var i = 0; i < data.length; ++i) {
-                    var util = [];
-                    util.push(i + 1);
-                    util.push(parseInt(data[i]));
-                    series.push(util);
-                }
-                let res = [];
-                res.push(series);
-                this.$store.commit('updateSeriesData', res);
-                // console.log(e.target.result);
+                let series = data.map((val, idx) => Array.of(idx, val));
+                this.$store.commit('updateSeriesData', Array.of(series));
             };
         }
-        // updateTitle (e) {
-        //     this.$store.commit('updateTitle', e.target.value);
-        // },
-        // updateLegend (e) {
-        //     let legend = [];
-        //     legend.push(e.target.value);
-        //     this.$store.commit('updateLegend', legend);
-        // },
-        // updateXName (e) {
-        //     this.$store.commit('updateXName', e.target.value);
-        // },
-        // updateXFormatter (e) {
-        //     this.$store.commit('updateXFormatter', e.target.value);
-        // },
-        // updateYName (e) {
-        //     this.$store.commit('updateYName', e.target.value);
-        // },
-        // updateYFormatter (e) {
-        //     this.$store.commit('updateYFormatter', e.target.value);
-        // },
-        // getFile (e) {
-        //     let file = e.target.files[0];
-        //     let reader = new FileReader();
-        //     reader.readAsText(file);
-        //     reader.onload = (e) => {
-        //         let data = e.target.result.toString().split('\n');
-        //         let series = [];
-        //         for (var i = 0; i < data.length; ++i) {
-        //             var util = [];
-        //             util.push(i + 1);
-        //             util.push(parseInt(data[i]));
-        //             series.push(util);
-        //         }
-        //         let res = [];
-        //         res.push(series);
-        //         this.$store.commit('updateSeriesData', res);
-        //         // console.log(e.target.result);
-        //     };
-        // }
     }
 };
 </script>
 
 <style>
+.row {
+    margin-top: 10px;
+}
 </style>

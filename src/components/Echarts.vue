@@ -1,5 +1,5 @@
 <template>
-    <div class="echarts"></div>
+    <div class="echarts"></div>        
 </template>
 
 <style>
